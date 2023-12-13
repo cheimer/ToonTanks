@@ -2,10 +2,23 @@
 
 
 #include "BasePawn.h"
+#include "Components/CapsuleComponent.h"
 
 ABasePawn::ABasePawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleCollider"));
+	SetRootComponent(CapsuleComp);
+
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BaseMesh"));
+	BaseMesh->SetupAttachment(RootComponent);
+
+	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
+	TurretMesh->SetupAttachment(BaseMesh);
+
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SpawnTrans"));
+	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 
 }
 
