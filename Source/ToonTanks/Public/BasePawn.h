@@ -14,13 +14,9 @@ class TOONTANKS_API ABasePawn : public APawn
 public:
 	ABasePawn();
 
-	virtual void Tick(float DeltaTime) override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-
 protected:
-	virtual void BeginPlay() override;
+	void RotateTurret(FVector LookAtTarget);
+	void Fire();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	class UCapsuleComponent* CapsuleComp;
@@ -34,6 +30,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	USceneComponent* ProjectileSpawnPoint;
 
-private:
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	TSubclassOf<class AProjectile> ProjectileClass;
 
 };

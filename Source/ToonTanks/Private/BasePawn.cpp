@@ -3,6 +3,7 @@
 
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
+#include "Projectile.h"
 
 ABasePawn::ABasePawn()
 {
@@ -22,21 +23,21 @@ ABasePawn::ABasePawn()
 
 }
 
-void ABasePawn::BeginPlay()
+void ABasePawn::RotateTurret(FVector Destination)
 {
-	Super::BeginPlay();
+	FVector LookVec = Destination - TurretMesh->GetComponentLocation();
+
+	FRotator LookRotation = FRotator(0.f, LookVec.Rotation().Yaw, 0.f);
+
+	TurretMesh->SetWorldRotation(
+		FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookRotation, GetWorld()->GetDeltaSeconds(), 5.0f));
+}
+
+void ABasePawn::Fire()
+{
+	auto SpawnedProjectile = GetWorld()->SpawnActor<AProjectile>(
+		ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
 	
-}
-
-void ABasePawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	
 
 }
-
-void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
