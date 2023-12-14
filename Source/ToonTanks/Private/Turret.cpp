@@ -35,8 +35,15 @@ void ATurret::HandleDestruction()
 
 void ATurret::CheckFireCondition()
 {
-	if (!IsPlayerTankInRange())
+	if (!PlayerTank)
+	{
 		return;
+	}
+
+	if (!IsPlayerTankInRange() || !PlayerTank->bAlive)
+	{
+		return;
+	}
 
 	Fire();
 }

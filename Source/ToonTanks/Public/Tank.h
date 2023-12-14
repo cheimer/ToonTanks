@@ -20,6 +20,8 @@ public:
 
 	APlayerController* PlayerController;
 
+	bool bAlive = true;
+
 protected:
 	virtual void BeginPlay() override;
 
