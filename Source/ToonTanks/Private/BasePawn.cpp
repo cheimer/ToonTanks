@@ -4,6 +4,7 @@
 #include "BasePawn.h"
 #include "Components/CapsuleComponent.h"
 #include "Projectile.h"
+#include "HealthComponent.h"
 
 ABasePawn::ABasePawn()
 {
@@ -21,6 +22,13 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SpawnTrans"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
+
+}
+
+void ABasePawn::HandleDestruction()
+{
+
 }
 
 void ABasePawn::RotateTurret(FVector Destination)
@@ -37,7 +45,6 @@ void ABasePawn::Fire()
 {
 	auto SpawnedProjectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
-	
-	
+	SpawnedProjectile->SetOwner(this);
 
 }

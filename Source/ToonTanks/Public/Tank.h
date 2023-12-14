@@ -16,6 +16,10 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestruction();
+
+	APlayerController* PlayerController;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -40,5 +44,4 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 90.0f;
 
-	APlayerController* PlayerController;
 };
